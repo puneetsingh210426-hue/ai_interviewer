@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Platform - Authentication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Authentication Screen -->
+    <div id="authScreen" class="screen active">
+        <div class="auth-container">
+            <div class="auth-panel">
+                <div class="logo-section">
+                    <div class="logo-circle">
+                        <svg viewBox="0 0 100 100" class="logo-svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M 30 50 Q 50 30, 70 50 Q 50 70, 30 50" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h1 class="app-title">AI Learning Platform</h1>
+                    <p class="app-subtitle">Master interviews and ace your studies with AI</p>
+                </div>
+
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <input type="text" id="loginUsername" placeholder="Username or Email" class="auth-input">
+                    <input type="password" id="loginPassword" placeholder="Password" class="auth-input">
+                    <button id="loginBtn" class="primary-btn">Login</button>
+                    <p class="auth-hint"> No account? <span onclick="switchAuthTab('register')">Register here</span></p>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="auth-form">
+                    <input type="text" id="regUsername" placeholder="Username" class="auth-input">
+                    <input type="email" id="regEmail" placeholder="Email" class="auth-input">
+                    <input type="password" id="regPassword" placeholder="Password (min 6 chars)" class="auth-input">
+                    <select id="regUserType" class="auth-input">
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                    <button id="registerBtn" class="primary-btn">Register</button>
+                    <p class="auth-hint">Already have account? <span onclick="switchAuthTab('login')">Login here</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Setup Screen (for legacy interview mode) -->
+    <div id="apiSetup" class="screen">
+        <div class="setup-container">
+            <div class="logo-section">
+                <div class="logo-circle">
+                    <svg viewBox="0 0 100 100" class="logo-svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M 30 50 Q 50 30, 70 50 Q 50 70, 30 50" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h1 class="app-title">Interview Coach Setup</h1>
+                <p class="app-subtitle">Add your Gemini API key to get started</p>
+            </div>
+            
+            <div class="api-input-section">
+                <label for="apiKey" class="input-label">Enter Your Gemini API Key</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="password" 
+                        id="apiKey" 
+                        class="api-input" 
+                        placeholder="AIzaSy..."
+                        autocomplete="off"
+                    >
+                    <button type="button" id="toggleApiKey" class="toggle-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
+                <p class="input-hint">Don't have one? <a href="https://makersuite.google.com/app/apikey" target="_blank">Get your free API key</a></p>
+                
+                <button id="startBtn" class="primary-btn">
+                    Continue to Interview Coach
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <button id="backBtn" class="secondary-btn">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="studentDashboard" class="screen">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="app-logo">
+                        <svg viewBox="0 0 100 100" class="logo-svg-small">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M 30 50 Q 50 30, 70 50 Q 50 70, 30 50" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="student-nav">
+                    <button class="nav-btn active" data-section="assignments">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 2C7.9 2 7 2.9 7 4v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H9zm0 2h10v16H9V4zm1 5h8v2H10V9zm0 4h8v2H10v-2z"/></svg>
+                        Assignments
+                    </button>
+                    <button class="nav-btn" data-section="submissions">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        My Submissions
+                    </button>
+                    <button class="nav-btn" data-section="interview">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/></svg>
+                        Interview Training
+                    </button>
+                    <button class="nav-btn" data-section="learning">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16V8c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm-11-7h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/></svg>
+                        Interactive Learning
+                    </button>
+                </div>
+
+                <div class="sidebar-footer">
+                    <div class="user-info">
+                        <p id="userData"></p>
+                    </div>
+                    <div class="api-key-entry">
+                        <input type="password" id="dashboardApiKeyInput" placeholder="Gemini API Key" class="api-input" style="margin-bottom:0.5rem;">
+                        <button id="dashboardSaveApiBtn" class="secondary-btn">Save API Key</button>
+                    </div>
+                    <button id="logoutBtn" class="secondary-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="dashboard-content">
+                <!-- Assignments Section -->
+                <div id="assignmentsSection" class="content-section active">
+                    <h2>Your Assignments</h2>
+                    <div id="assignmentsList" class="assignments-grid"></div>
+                </div>
+
+                <!-- Submission Modal -->
+                <div id="submissionModal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <button id="closeSubmissionModal" class="secondary-btn" style="float:right;">Close</button>
+                        <h3 id="modalPaperTitle">Question Paper</h3>
+                        <div id="modalPaperContent" style="max-height:300px;overflow:auto;background:#fff;padding:12px;border-radius:8px;margin-bottom:8px;"></div>
+                        <div style="margin-bottom:8px;">
+                            <button id="downloadPaperBtn" class="primary-btn">Download Paper (PDF)</button>
+                        </div>
+                        <form id="pdfSubmitForm">
+                            <input type="hidden" id="modalAssignmentId">
+                            <label>Upload your PDF answer:</label>
+                            <input type="file" id="submissionFileInput" accept="application/pdf" required>
+                            <div style="margin-top:8px;">
+                                <button type="submit" class="primary-btn">Submit PDF</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Submissions Section -->
+                <div id="submissionsSection" class="content-section">
+                    <h2>My Submissions</h2>
+                    <div id="submissionsList" class="submissions-list"></div>
+                </div>
+
+                <!-- Interview Training Section -->
+                <div id="interviewSection" class="content-section">
+                    <div class="interview-setup">
+                        <h3>Interview Training Setup</h3>
+                        <div class="interview-form">
+                            <div class="form-group">
+                                <label>Interview Type:</label>
+                                <select id="interviewType">
+                                    <option value="technical">Technical Interview</option>
+                                    <option value="behavioral">Behavioral Interview</option>
+                                    <option value="hr">HR Round</option>
+                                    <option value="case">Case Study</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Difficulty Level:</label>
+                                <select id="difficulty">
+                                    <option value="easy">Entry Level</option>
+                                    <option value="medium" selected>Intermediate</option>
+                                    <option value="hard">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Practice Mode:</label>
+                                <select id="practiceMode">
+                                    <option value="voice">Voice Mode</option>
+                                    <option value="chat">Chat Mode</option>
+                                </select>
+                            </div>
+                            <button id="startInterviewBtn" class="primary-btn">Start Interview</button>
+                        </div>
+                    </div>
+
+                    <div id="interviewContainer" style="display:none;">
+                        <div class="interview-workspace">
+                            <div class="interview-avatar-area">
+                                <div class="avatar-container" id="voiceMode" style="display:flex;">
+                                    <div class="avatar">
+                                        <div class="avatar-head">
+                                            <div class="avatar-face">
+                                                <div class="avatar-eyes">
+                                                    <div class="eye"><div class="pupil"></div></div>
+                                                    <div class="eye"><div class="pupil"></div></div>
+                                                </div>
+                                                <div class="avatar-mouth">
+                                                    <svg viewBox="0 0 100 30" class="mouth-svg">
+                                                        <path d="M 20 10 Q 50 25, 80 10" fill="none" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="recordBtn" class="record-btn">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <circle cx="12" cy="12" r="8"/>
+                                        </svg>
+                                        <span class="btn-text">Press to Speak</span>
+                                    </button>
+                                </div>
+                                <div id="chatMode" style="display:none;" class="chat-interface">
+                                    <div id="chatMessages" class="chat-messages"></div>
+                                    <div class="chat-input-area">
+                                        <textarea id="chatInput" placeholder="Type your answer..."></textarea>
+                                        <button id="sendBtn" class="send-btn">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="interview-transcript-area">
+                                <h4>Transcript</h4>
+                                <div id="voiceTranscript" class="transcript"></div>
+                            </div>
+
+                            <div class="interview-stats">
+                                <h4>Session Stats</h4>
+                                <div class="stat-item">
+                                    <span class="stat-label">Duration:</span>
+                                    <span id="sessionDuration" class="stat-value">00:00</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Questions Asked:</span>
+                                    <span id="questionCount" class="stat-value">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Corrections:</span>
+                                    <span id="correctionCount" class="stat-value">0</span>
+                                </div>
+                                <button id="newInterviewBtn" class="secondary-btn">Restart Interview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Learning Section -->
+                <div id="learningSection" class="content-section">
+                    <h2>Interactive Learning with Voice</h2>
+                    <div class="learning-setup">
+                        <input type="text" id="learningTopic" placeholder="Learning Topic" class="auth-input">
+                        <textarea id="learningContent" placeholder="Learning Content or Questions" class="auth-input"></textarea>
+                        <button id="startLearningBtn" class="primary-btn">Start Learning Session</button>
+                    </div>
+
+                    <div id="learningContainer" style="display:none;">
+                        <div class="learning-workspace">
+                            <div class="learning-content-area">
+                                <h3 id="learningTopicDisplay"></h3>
+                                <div id="learningContentDisplay" class="content-display"></div>
+                            </div>
+
+                            <div class="learning-interaction-area">
+                                <div class="recording-controls">
+                                    <button id="learningMicBtn" class="mic-btn">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                                            <path d="M17 16.91c-1.48 1.46-3.51 2.36-5.77 2.36-2.26 0-4.29-.9-5.77-2.36M9 18.9v2.5M15 18.9v2.5"/>
+                                        </svg>
+                                        <span>Press to Record</span>
+                                    </button>
+                                </div>
+                                <div id="learningTranscript" class="transcript"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacherDashboard" class="screen">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="app-logo">
+                        <svg viewBox="0 0 100 100" class="logo-svg-small">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M 12 2 L 2 7 v 10 c 0 5.55 3.84 10.74 9 12 c 5.16 -1.26 9 -6.45 9 -12 V 7 l -10 -5 z M 12 8 v 4 m 0 4 v 0.01" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h2>Teacher Panel</h2>
+                </div>
+
+                <div class="teacher-nav">
+                    <button class="nav-btn active" data-section="papers">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-8-6z"/></svg>
+                        Question Papers
+                    </button>
+                    <button class="nav-btn" data-section="submissions">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        Grade Submissions
+                    </button>
+                    <button class="nav-btn" data-section="create">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4-2h2v20h-2zm4 4h2v16h-2z"/></svg>
+                        Create Assignment
+                    </button>
+                </div>
+
+                <div class="sidebar-footer">
+                    <div class="user-info">
+                        <p id="teacherData"></p>
+                    </div>
+                    <div class="api-key-entry">
+                        <input type="password" id="teacherDashboardApiKeyInput" placeholder="Gemini API Key" class="api-input" style="margin-bottom:0.5rem;">
+                        <button id="teacherDashboardSaveApiBtn" class="secondary-btn">Save API Key</button>
+                    </div>
+                    <button id="teacherLogoutBtn" class="secondary-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="dashboard-content">
+                <!-- Papers Section -->
+                <div id="papersSection" class="content-section active">
+                    <h2>My Question Papers</h2>
+                    <div id="papersList" class="papers-grid"></div>
+                </div>
+
+                <!-- Submissions Section -->
+                <div id="gradeSection" class="content-section">
+                    <h2>Student Submissions</h2>
+                    <div class="grade-controls">
+                        <select id="paperSelect" class="grade-select">
+                            <option value="">Select a paper...</option>
+                        </select>
+                    </div>
+                    <div id="submissionsTable" class="submissions-table"></div>
+                </div>
+
+                <!-- Create Assignment Section -->
+                <div id="createSection" class="content-section">
+                    <h2>Create New Assignment</h2>
+                    <form id="assignmentForm" class="assignment-form">
+                        <div class="form-group">
+                            <label>Title:</label>
+                            <input type="text" id="assignTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea id="assignDescription"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Difficulty:</label>
+                            <select id="assignDifficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Questions:</label>
+                            <input type="number" id="numQuestions" value="5" min="1" max="50">
+                        </div>
+                        <div class="form-group">
+                            <label>Question Types:</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" value="short" checked> Short Answer</label>
+                                <label><input type="checkbox" value="long" checked> Long Answer</label>
+                                <label><input type="checkbox" value="mcq"> Multiple Choice</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline:</label>
+                            <input type="datetime-local" id="assignDeadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Assign to Students:</label>
+                            <input type="text" id="studentList" placeholder="Enter student usernames separated by comma">
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Syllabus (PDF):</label>
+                            <input type="file" id="syllabusFile" accept="application/pdf">
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Previous Year Questions (PDF):</label>
+                            <input type="file" id="pyqFile" accept="application/pdf">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="uploadSessionBtn" class="secondary-btn">Upload & Start Teacher Session</button>
+                            <button type="button" id="generatePaperBtn" class="primary-btn">Generate Paper from Uploaded Content</button>
+                        </div>
+                        <div id="generatedPapersList" style="margin-top:1rem;"></div>
+                        <button type="submit" class="primary-btn">Create Assignment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Toast -->
+    <div id="statusToast" class="status-toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
